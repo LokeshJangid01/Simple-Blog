@@ -1,6 +1,3 @@
-from django.shortcuts import render
-
-# Create your views here.
 from rest_framework import generics
 from .models import Post, Comment
 from .serializers import PostSerializer, CommentSerializer
@@ -13,10 +10,16 @@ class PostRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
 
-class CommentCreateView(generics.CreateAPIView):
+class CommentListCreateView(generics.ListCreateAPIView):
+    serializer_class = CommentSerializer
+    
+    def get_queryset(self):
+        return Comment.objects.filter(post_id=self.kwargs['post_pk'])
+        
+    def perform_create(self, serializer):
+        post = Post.objects.get(pk=self.kwargs['post_pk'])
+        serializer.save(post=post)
+
+class CommentRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
-
-    def perform_create(self, serializer):
-        post = Post.objects.get(pk=self.kwargs['pk'])
-        serializer.save(post=post)
