@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-xps!%m0syaozjd(8*d=th9oysol#9ar9thg0y32*wj@bq3w)xz
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://simple-blog-nhgf.onrender.com']
+ALLOWED_HOSTS = ['simple-blog-nhgf.onrender.com']
 
 
 # Application definition
